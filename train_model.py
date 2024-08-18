@@ -11,10 +11,10 @@ import torch
 import matrix_env
 
 
-policy_kwargs = dict(net_arch=[64])
-size_space=4
+size_space=5
 size_piece=2
-num_zeros=4
+num_zeros=5
+policy_kwargs = dict(net_arch=[64])
 
 envTrain = gym.make('MatrixEnv-v0', size_space=size_space, size_piece=size_piece, num_zeros=num_zeros)
 envTrain = Monitor(envTrain)
@@ -22,15 +22,15 @@ envTrain = Monitor(envTrain)
 envTest = gym.make('MatrixEnv-v0', size_space=size_space, size_piece=size_piece, num_zeros=num_zeros)
 
 model = DQN('MlpPolicy', envTrain, verbose=2, policy_kwargs=policy_kwargs)
-model.learn(total_timesteps=100000, log_interval=1000)
+model.learn(total_timesteps=1000000, log_interval=10000)
 
 
 
-#eval_env = gym.make('MatrixEnv-v0')
-#eval_env = Monitor(eval_env)
+envEval = gym.make('MatrixEnv-v0', size_space=size_space, size_piece=size_piece, num_zeros=num_zeros)
+envEval = Monitor(envEval)
 
-#mean_reward, std_reward = evaluate_policy(model, eval_env, n_eval_episodes=10)
-#print(f"Mean reward: {mean_reward} +/- {std_reward}")
+mean_reward, std_reward = evaluate_policy(model, envEval, n_eval_episodes=1000)
+print(f"Mean reward: {mean_reward} +/- {std_reward}")
 
 #print(model.policy)
 
