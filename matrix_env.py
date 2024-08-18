@@ -88,9 +88,9 @@ class MatrixEnv(gym.Env):
             self._make_room_for_piece_in_space()
 
         # Check if all cells in state_matrix_space are now True
-        if np.all(self.state_matrix_space):
-            reward = 2
-            done = True
+    #    if np.all(self.state_matrix_space):
+    #        reward = 2
+    #        done = True
 
         truncated = False
 

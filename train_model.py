@@ -32,16 +32,16 @@ envEval = Monitor(envEval)
 mean_reward, std_reward = evaluate_policy(model, envEval, n_eval_episodes=1000)
 print(f"Mean reward: {mean_reward} +/- {std_reward}")
 
-#print(model.policy)
+print(model.policy)
 
 # Test the trained model
 obs, info = envTest.reset()
 for step in range(20):
-    envTest.unwrapped.renderstate()  # Use unwrapped to access the base environment's method
+    envTest.unwrapped.renderstate() 
     action, _states = model.predict(obs, deterministic=True)
     obs, reward, done, truncated, info = envTest.step(action)
     obs_matrix_space_after_insertion = info['combined_obs_after_insertion'].flatten()
-    envTest.unwrapped.renderstep(obs_matrix_space_after_insertion, action, reward, done, step)  # Again, use unwrapped
+    envTest.unwrapped.renderstep(obs_matrix_space_after_insertion, action, reward, done, step)  
     
     if done:
         print("Episode finished")
